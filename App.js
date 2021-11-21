@@ -3,18 +3,18 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import SettingsScreen from './screens/SettingsScreen';
+import ItemSettingsScreen from './screens/ItemSettingsScreen';
+import AttendeesSettingsScreen from './screens/AttendeesSettingsScreen';
 
 const Stack = createStackNavigator();
 
 export default function App() {
 
-    const [items, setItems] = React.useState("text");
-
     return (
-        <NavigationContainer items="items" onSetData={(newItems) => setItems(newItems)}>
+        <NavigationContainer>
             <Stack.Navigator>
-                <Stack.Screen name="Settings" component={SettingsScreen}/>
+                <Stack.Screen name="ItemSettings" component={ItemSettingsScreen}/>
+                <Stack.Screen name="AttendeesSettings" component={AttendeesSettingsScreen}/>
             </Stack.Navigator>
         </NavigationContainer>
     );
