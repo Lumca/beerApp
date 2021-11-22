@@ -20,8 +20,9 @@ const ItemSettingsScreen = ({navigation}) => {
             });
             i--;
         }
-        AsyncStorage.setItem('@itemSetting', arr)
-            .then(() => {;
+        const jsonArr = JSON.stringify(arr)
+        AsyncStorage.setItem('@itemSetting', jsonArr)
+            .then(() => {
                 navigation.navigate('AttendeesSettings');
             })
             .catch(err => {
