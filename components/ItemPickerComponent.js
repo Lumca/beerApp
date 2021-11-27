@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {View} from "react-native";
 import {Button} from "react-native-elements"
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -79,17 +79,34 @@ const ItemPickerComponent = () => {
                         title={attendee.name}
                         onPress={() => {
                             setAttendeeSelected(attendee)
-                            finishPicking();
                         }}
                     />
                 ))}
             </View>
         )
     }
-
-    const finishPicking = () => {
-
-    }
+    useEffect(() => {
+        if (itemSelected && glassSelected && attendeeSelected) {
+            const object = {
+                itemInfo: itemSelected,
+                glassInfo: glassSelected,
+                attendeeInfo: attendeeSelected
+            };
+            AsyncStorage.getItem('@transactions').then(transactions => {
+                if (transactions) {
+                    const parsedTransactions = JSON.parse(transactions);
+                    parsedTransactions.push(object);
+                    AsyncStorage.setItem('@transactions', JSON.stringify(parsedTransactions));
+                } else {
+                    const newTransactions = [object];
+                    AsyncStorage.setItem('@transactions', JSON.stringify(newTransactions));
+                }
+            });
+            setAttendeeSelected(null);
+            setItemSelected(null);
+            setGlassSelected(null);
+        }
+    }, [itemSelected, glassSelected, attendeeSelected]);
 
     let render;
 
