@@ -1,28 +1,40 @@
 import React, {useEffect, useState} from "react";
-import {Alert, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {FlatList, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {Button, Input, ListItem} from "react-native-elements";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useForm, Controller} from "react-hook-form";
 
 const HistoryScreen = ({navigation}) => {
 
-    const [transactions, setTransactions] = useState(null);
+    const [transactions, setTransactions] = useState([]);
 
     useEffect(() => {
         navigation.setOptions({
-            headerTitle: 'Leaderboard',
+            headerTitle: 'History',
         });
-        AsyncStorage.getItem("@transactions").then(value => {
-                setTransactions(value);
-        }).catch(err => {
-            console.log(err);
+
+        AsyncStorage.getItem('@transactions').then(transactions => {
+            if (transactions) {
+                setTransactions(JSON.parse(transactions));
+            }
         });
     }, [navigation]);
 
     return (
-        <View style={styles.container}>
-            <Text>{transactions}</Text>
+
+        <View>
+                {transactions.map((transaction, i) => (
+                    <ListItem key={i} bottomDivider>
+                        <ListItem.Content>
+                            <ListItem.Title>{transaction.itemInfo.name}</ListItem.Title>
+                            <ListItem.Title>{transaction.attendeeInfo.name}</ListItem.Title>
+                            <ListItem.Subtitle>{transaction.glassInfo} ml</ListItem.Subtitle>
+                        </ListItem.Content>
+                    </ListItem>
+                ))}
         </View>
+
+
     );
 };
 

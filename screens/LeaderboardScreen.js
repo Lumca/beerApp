@@ -17,6 +17,7 @@ const SettingsScreen = ({navigation}) => {
         }).catch(err => {
             console.log(err);
         });
+        console.log(transactions);
     }, [navigation]);
 
     return (
