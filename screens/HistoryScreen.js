@@ -18,10 +18,9 @@ const HistoryScreen = ({navigation}) => {
                 setTransactions(JSON.parse(transactions));
             }
         });
-    }, [navigation]);
+    }, [navigation])
 
     return (
-
         <View>
                 {transactions.map((transaction, i) => (
                     <ListItem key={i} bottomDivider>
@@ -29,12 +28,11 @@ const HistoryScreen = ({navigation}) => {
                             <ListItem.Title>{transaction.itemInfo.name}</ListItem.Title>
                             <ListItem.Title>{transaction.attendeeInfo.name}</ListItem.Title>
                             <ListItem.Subtitle>{transaction.glassInfo} ml</ListItem.Subtitle>
+                            <ListItem.Subtitle>{transaction.time}</ListItem.Subtitle>
                         </ListItem.Content>
                     </ListItem>
                 ))}
         </View>
-
-
     );
 };
 

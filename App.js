@@ -10,6 +10,7 @@ import AttendeesSettingsScreen from './screens/AttendeesSettingsScreen';
 import SettingsScreen from './screens/SettingsScreen';
 import LeaderboardScreen from "./screens/LeaderboardScreen";
 import HistoryScreen from "./screens/HistoryScreen";
+import ReportScreen from "./screens/ReportScreen";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -37,6 +38,7 @@ export default function App() {
                 <Tab.Screen name="Dashboard" component={DashboardScreen}/>
                 <Tab.Screen name='History' component={HistoryScreen}/>
                 <Tab.Screen name='Leaderboard' component={LeaderboardScreen}/>
+                <Tab.Screen name='Report' component={ReportScreen}/>
             </Tab.Navigator>
         </NavigationContainer>
     );

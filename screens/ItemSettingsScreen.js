@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {Button, Input} from "react-native-elements";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useForm, Controller} from "react-hook-form";
@@ -7,8 +7,14 @@ import {useForm, Controller} from "react-hook-form";
 const ItemSettingsScreen = ({navigation}) => {
 
     const [count, setCount] = useState();
+    const {control, handleSubmit, formState: {errors}} = useForm({});
 
-    const { control, handleSubmit, formState: { errors } } = useForm({});
+    useEffect(() => {
+        navigation.setOptions({
+            headerTitle: 'Nastavení sudů',
+        });
+    }, [navigation]);
+
     const onSubmit = data => {
         const arr = [];
         for (let i = 0; i < count; i++) {
@@ -16,7 +22,8 @@ const ItemSettingsScreen = ({navigation}) => {
             arr.push({
                 id: i,
                 name: data[`name${i}`],
-                liters: data[`liters${i}`]
+                liters: data[`liters${i}`],
+                price: data[`price${i}`]
             });
             i--;
         }
@@ -29,12 +36,6 @@ const ItemSettingsScreen = ({navigation}) => {
                 console.log(err);
             });
     };
-
-    useEffect(() => {
-        navigation.setOptions({
-            headerTitle: 'Nastavení sudů',
-        });
-    }, [navigation]);
 
     const renderItems = () => {
         return Array.apply(null, {length: count}).map((p, index) => (
@@ -72,14 +73,30 @@ const ItemSettingsScreen = ({navigation}) => {
                         />
                     )}
                     name={'liters' + index}
-                    />
+                />
+                <Controller
+                    control={control}
+                    rules={{
+                        required: true,
+                    }}
+                    render={({field: {onChange, onBlur, value}}) => (
+                        <Input key={"price" + index}
+                               placeholder="Cena"
+                               leftIcon={{type: 'material', name: 'money'}}
+                               onBlur={onBlur}
+                               value={value}
+                               onChangeText={onChange}
+                               label={'Cena #' + index}
+                        />
+                    )}
+                    name={'price' + index}
+                />
             </View>
         ))
     }
 
     return (
-        <View style={styles.container}>
-
+        <ScrollView>
             <Input
                 placeholder='Kolik sudů'
                 leftIcon={{type: 'material', name: 'tag'}}
@@ -96,7 +113,7 @@ const ItemSettingsScreen = ({navigation}) => {
                     onPress={handleSubmit(onSubmit)}
                 />
             </TouchableOpacity>
-        </View>
+        </ScrollView>
     );
 };
 

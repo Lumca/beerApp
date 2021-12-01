@@ -90,7 +90,8 @@ const ItemPickerComponent = () => {
             const object = {
                 itemInfo: itemSelected,
                 glassInfo: glassSelected,
-                attendeeInfo: attendeeSelected
+                attendeeInfo: attendeeSelected,
+                time: new Date().toLocaleString()
             };
             AsyncStorage.getItem('@transactions').then(transactions => {
                 if (transactions) {
