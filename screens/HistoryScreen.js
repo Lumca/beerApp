@@ -21,7 +21,7 @@ const HistoryScreen = ({navigation}) => {
     }, [navigation])
 
     return (
-        <View>
+        <ScrollView>
                 {transactions.map((transaction, i) => (
                     <ListItem key={i} bottomDivider>
                         <ListItem.Content>
@@ -32,7 +32,7 @@ const HistoryScreen = ({navigation}) => {
                         </ListItem.Content>
                     </ListItem>
                 ))}
-        </View>
+        </ScrollView>
     );
 };
 
