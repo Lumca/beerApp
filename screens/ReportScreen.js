@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {View, Text, StyleSheet, TouchableOpacity} from "react-native";
 import litersSumCount from "../functions/item";
+import transactionsReport from "../functions/transactions";
 import {getTransactions, getItemSetting, getAttendeesSetting} from "../functions/storage";
 
 
@@ -16,23 +17,14 @@ const ReportScreen = ({navigation}) => {
             headerTitle: "Report",
         });
 
-        getTransactions().then(value => {
-            setTransactions(value);
-        })
-
-        getItemSetting().then(value => {
-            setItems(value);
-        })
-
-
-        getAttendeesSetting().then(value => {
-            setAttendees(value);
-        })
-
         const unsubscribe = navigation.addListener('focus', () => {
             litersSumCount().then(value => {
-                console.log(value);
                 setLiters(value);
+            })
+
+            transactionsReport().then(value => {
+                console.log(value);
+                setTransactions(value);
             })
         });
 
@@ -53,10 +45,20 @@ const ReportScreen = ({navigation}) => {
                     </View>
                 )
             })}
-            {attendees && attendees.map((attendee, index) => {
+            {transactions && transactions.map((transactions, index) => {
                 return (
                     <View key={index} >
-                        <Text>{attendee.name}</Text>
+                        <Text>Jméno: {transactions.attendeeInfo.name}</Text>
+                        <Text>Celková částka: {transactions.priceSum}</Text>
+                        {transactions.itemsInfo.map((item, index) => {
+                            return (
+                                <View key={index}>
+                                    <Text>Pivo: {item.name}</Text>
+                                    <Text>Vypito: {item.litersSum}</Text>
+                                    <Text>Částka: {item.price}</Text>
+                                </View>
+                            )
+                        })}
                     </View>
                 )
             })}

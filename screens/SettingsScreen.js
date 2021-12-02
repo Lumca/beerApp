@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {Button, Input, ListItem} from "react-native-elements";
-import transactions from "../functions/transactions"
 
 
 const SettingsScreen = ({navigation}) => {
@@ -21,9 +20,6 @@ const SettingsScreen = ({navigation}) => {
         navigation.setOptions({
             headerTitle: 'Nastavení',
         });
-        transactions().then(res => {
-            console.log(res)
-        })
     }, [navigation]);
 
     return (

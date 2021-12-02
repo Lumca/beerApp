@@ -1,6 +1,6 @@
 import {getAttendeesSetting, getItemSetting, getTransactions} from "./storage";
 
-const transactions = async () => {
+const transactionsReport = async () => {
 
     let _itemSetting;
     let _transactions;
@@ -80,4 +80,4 @@ const getWholeSumByAttendee = (itemSetting, attendeeId, transactions) => {
     }
     return sum;
 }
-export default transactions;
+export default transactionsReport;
