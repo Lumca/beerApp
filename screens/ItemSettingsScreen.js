@@ -3,17 +3,25 @@ import {SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View} from
 import {Button, Input} from "react-native-elements";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useForm, Controller} from "react-hook-form";
+import {getItemSetting} from "../functions/storage";
 
 const ItemSettingsScreen = ({navigation}) => {
 
     const [count, setCount] = useState();
+    const [items, setItems] = useState();
     const {control, handleSubmit, formState: {errors}} = useForm({});
 
     useEffect(() => {
         navigation.setOptions({
             headerTitle: 'Nastavení sudů',
         });
-    }, [navigation]);
+        const unsubscribe = navigation.addListener('focus', () => {
+            getItemSetting().then(value => {
+                setItems(value);
+            });
+        });
+        return unsubscribe;
+        }, [navigation]);
 
     const onSubmit = data => {
         const arr = [];
@@ -36,63 +44,77 @@ const ItemSettingsScreen = ({navigation}) => {
                 console.log(err);
             });
     };
+    //Fill form with data if items is not empty
+    useEffect(() => {
+        if (items) {
+            setCount(items.length);
+            for (let i = 0; i < items.length; i++) {
+                i++;
+                control.register(`name${i}`, {value: items[i -1].name});
+                control.register(`liters${i}`, {value: items[i -1].liters});
+                control.register(`price${i}`, {value: items[i -1].price});
+                i--;
+            }
+        }
+    }, [items]);
+
 
     const renderItems = () => {
-        return Array.apply(null, {length: count}).map((p, index) => (
-            <View key={++index}>
-                <Controller
-                    control={control}
-                    rules={{
-                        required: true,
-                    }}
-                    render={({field: {onChange, onBlur, value}}) => (
-                        <Input key={"name" + index}
-                               placeholder="Jméno sudu"
-                               leftIcon={{type: 'material', name: 'tag'}}
-                               onBlur={onBlur}
-                               value={value}
-                               onChangeText={onChange}
-                               label={'Sud #' + index}
-                        />
-                    )}
-                    name={'name' + index}
-                />
-                <Controller
-                    control={control}
-                    rules={{
-                        required: true,
-                    }}
-                    render={({field: {onChange, onBlur, value}}) => (
-                        <Input key={"liters" + index}
-                               placeholder="Litry"
-                               leftIcon={{type: 'material', name: 'local-drink'}}
-                               onBlur={onBlur}
-                               value={value}
-                               onChangeText={onChange}
-                               label={'Litry #' + index}
-                        />
-                    )}
-                    name={'liters' + index}
-                />
-                <Controller
-                    control={control}
-                    rules={{
-                        required: true,
-                    }}
-                    render={({field: {onChange, onBlur, value}}) => (
-                        <Input key={"price" + index}
-                               placeholder="Cena"
-                               leftIcon={{type: 'material', name: 'money'}}
-                               onBlur={onBlur}
-                               value={value}
-                               onChangeText={onChange}
-                               label={'Cena #' + index}
-                        />
-                    )}
-                    name={'price' + index}
-                />
-            </View>
-        ))
+            return Array.apply(null, {length: count}).map((p, index) => (
+                <View key={++index}>
+                    <Controller
+                        control={control}
+                        rules={{
+                            required: true,
+                        }}
+                        render={({field: {onChange, onBlur, value}}) => (
+                            <Input key={"name" + index}
+                                   placeholder="Jméno sudu"
+                                   leftIcon={{type: 'material', name: 'tag'}}
+                                   onBlur={onBlur}
+                                   value={value}
+                                   onChangeText={onChange}
+                                   label={'Sud #' + index}
+                            />
+                        )}
+                        name={'name' + index}
+                    />
+                    <Controller
+                        control={control}
+                        rules={{
+                            required: true,
+                        }}
+                        render={({field: {onChange, onBlur, value}}) => (
+                            <Input key={"liters" + index}
+                                   placeholder="Litry"
+                                   leftIcon={{type: 'material', name: 'local-drink'}}
+                                   onBlur={onBlur}
+                                   value={value}
+                                   onChangeText={onChange}
+                                   label={'Litry #' + index}
+                            />
+                        )}
+                        name={'liters' + index}
+                    />
+                    <Controller
+                        control={control}
+                        rules={{
+                            required: true,
+                        }}
+                        render={({field: {onChange, onBlur, value}}) => (
+                            <Input key={"price" + index}
+                                   placeholder="Cena"
+                                   leftIcon={{type: 'material', name: 'money'}}
+                                   onBlur={onBlur}
+                                   value={value}
+                                   onChangeText={onChange}
+                                   label={'Cena #' + index}
+                            />
+                        )}
+                        name={'price' + index}
+                    />
+                </View>
+            ))
     }
 
     return (

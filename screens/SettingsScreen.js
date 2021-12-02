@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {Button, Input, ListItem} from "react-native-elements";
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useForm, Controller} from "react-hook-form";
+
 
 const SettingsScreen = ({navigation}) => {
 
@@ -48,4 +47,5 @@ const styles = StyleSheet.create({
         backgroundColor: "#fff",
         alignItems: "center",
     },
+
 });
