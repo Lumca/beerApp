@@ -13,7 +13,6 @@ const ItemPickerComponent = () => {
 
     useEffect(() => {
         getItemSetting().then(item => {
-            console.log(item)
             setItems(item);
         });
         getAttendeesSetting().then(attendee => {
