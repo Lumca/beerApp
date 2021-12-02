@@ -1,38 +1,51 @@
 import React, {useEffect, useState} from "react";
 import {View} from "react-native";
 import {Button} from "react-native-elements"
+import {getItemSetting, getAttendeesSetting} from "../functions/storage";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
-const mockedItemData = [{
-    id: 1,
-    name: "Plzen",
-    liters: 30
-},
-    {
-        id: 2,
-        name: "Budvar",
-        liters: 15
-    }];
-
-const mockedAttendeeData = [{
-    id: 1,
-    name: "Lumca"
-},
-    {
-        id: 2,
-        name: "Klárka"
-    }];
-
 
 const ItemPickerComponent = () => {
     const [itemSelected, setItemSelected] = useState(null);
     const [glassSelected, setGlassSelected] = useState(null);
     const [attendeeSelected, setAttendeeSelected] = useState(null);
+    const [attendees, setAttendees] = useState([]);
+    const [items, setItems] = useState([]);
+
+    useEffect(() => {
+        getItemSetting().then(item => {
+            console.log(item)
+            setItems(item);
+        });
+        getAttendeesSetting().then(attendee => {
+            setAttendees(attendee);
+        });
+        if (itemSelected && glassSelected && attendeeSelected) {
+            const object = {
+                itemInfo: itemSelected,
+                glassInfo: glassSelected,
+                attendeeInfo: attendeeSelected,
+                time: new Date().toLocaleString()
+            };
+            AsyncStorage.getItem('@transactions').then(transactions => {
+                if (transactions) {
+                    const parsedTransactions = JSON.parse(transactions);
+                    parsedTransactions.push(object);
+                    AsyncStorage.setItem('@transactions', JSON.stringify(parsedTransactions));
+                } else {
+                    const newTransactions = [object];
+                    AsyncStorage.setItem('@transactions', JSON.stringify(newTransactions));
+                }
+            });
+            setAttendeeSelected(null);
+            setItemSelected(null);
+            setGlassSelected(null);
+        }
+    }, [itemSelected, glassSelected, attendeeSelected]);
 
     const itemPicker = () => {
         return (
             <View>
-                {mockedItemData.map(item => (
+                {items.map(item => (
                     <Button
                         key={item.id}
                         title={item.name}
@@ -73,7 +86,7 @@ const ItemPickerComponent = () => {
     const attendeePicker = () => {
         return (
             <View>
-                {mockedAttendeeData.map(attendee => (
+                {attendees.map(attendee => (
                     <Button
                         key={attendee.id}
                         title={attendee.name}
@@ -85,29 +98,7 @@ const ItemPickerComponent = () => {
             </View>
         )
     }
-    useEffect(() => {
-        if (itemSelected && glassSelected && attendeeSelected) {
-            const object = {
-                itemInfo: itemSelected,
-                glassInfo: glassSelected,
-                attendeeInfo: attendeeSelected,
-                time: new Date().toLocaleString()
-            };
-            AsyncStorage.getItem('@transactions').then(transactions => {
-                if (transactions) {
-                    const parsedTransactions = JSON.parse(transactions);
-                    parsedTransactions.push(object);
-                    AsyncStorage.setItem('@transactions', JSON.stringify(parsedTransactions));
-                } else {
-                    const newTransactions = [object];
-                    AsyncStorage.setItem('@transactions', JSON.stringify(newTransactions));
-                }
-            });
-            setAttendeeSelected(null);
-            setItemSelected(null);
-            setGlassSelected(null);
-        }
-    }, [itemSelected, glassSelected, attendeeSelected]);
+
 
     let render;
 
