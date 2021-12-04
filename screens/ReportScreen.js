@@ -3,8 +3,8 @@ import {View, StyleSheet, TouchableOpacity, ScrollView, FlatList} from "react-na
 import {Text} from 'react-native-elements';
 import litersSumCount from "../functions/item";
 import transactionsReport from "../functions/transactions";
-import Accordion from 'react-native-collapsible/Accordion';
 import Collapsible from "react-native-collapsible";
+import Modal from "react-native-modal";
 
 
 const ReportScreen = ({navigation}) => {
@@ -74,10 +74,8 @@ const ReportScreen = ({navigation}) => {
                                     <Text>Jméno: {transactions.attendeeInfo.name}</Text>
                                     <Text>Celková částka: {transactions.priceSum}</Text>
                                 </View>
-
-                                <View>
-
-                                    <Collapsible collapsed={collapsible !== index}>
+                                <Collapsible collapsed={collapsible !== index}>
+                                    <View style={style.item_name_price_container}>
                                         {transactions.itemsInfo.map((item, index) => {
                                             return (
                                                 <View key={index}>
@@ -87,9 +85,10 @@ const ReportScreen = ({navigation}) => {
                                                 </View>
                                             )
                                         })}
-                                    </Collapsible>
-                                </View>
+                                    </View>
+                                </Collapsible>
                             </View>
+
                         </TouchableOpacity>
                     )
                 })}
@@ -129,6 +128,12 @@ const style = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
     },
+    item_name_price_container: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        flexWrap: 'wrap',
+        marginTop: 10,
+    }
 });
 
 export default ReportScreen;

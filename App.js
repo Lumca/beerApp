@@ -11,6 +11,7 @@ import SettingsScreen from './screens/SettingsScreen';
 import LeaderboardScreen from "./screens/LeaderboardScreen";
 import HistoryScreen from "./screens/HistoryScreen";
 import ReportScreen from "./screens/ReportScreen";
+import { MaterialIcons } from '@expo/vector-icons';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -33,12 +34,45 @@ export default function App() {
                 <Tab.Screen
                     name="Settings"
                     component={StackScreens}
-                    options={{ headerShown: false }}
+                    options={{
+                        headerShown: false,
+                        tabBarIcon: ({color, size}) => (
+                            <MaterialIcons name="settings" color={color} size={size}/>
+                        )
+                    }}
                 />
-                <Tab.Screen name="Dashboard" component={DashboardScreen}/>
-                <Tab.Screen name='History' component={HistoryScreen}/>
-                <Tab.Screen name='Leaderboard' component={LeaderboardScreen}/>
-                <Tab.Screen name='Report' component={ReportScreen}/>
+                <Tab.Screen name='Leaderboard'
+                            component={LeaderboardScreen}
+                            options={{
+                                tabBarIcon: ({color, size}) => (
+                                    <MaterialIcons name="leaderboard" color={color} size={size}/>
+                                )
+                            }}
+                />
+                <Tab.Screen name="Dashboard"
+                            component={DashboardScreen}
+                            options={{
+                                tabBarIcon: ({color, size}) => (
+                                    <MaterialIcons name="local-drink" color={color} size={size}/>
+                                )
+                            }}
+                />
+                <Tab.Screen name='History'
+                            component={HistoryScreen}
+                            options={{
+                                tabBarIcon: ({color, size}) => (
+                                    <MaterialIcons name="history" color={color} size={size}/>
+                                )
+                            }}
+                />
+                <Tab.Screen name='Report'
+                            component={ReportScreen}
+                            options={{
+                                tabBarIcon: ({color, size}) => (
+                                    <MaterialIcons name="attach-money" color={color} size={size}/>
+                                )
+                            }}
+                />
             </Tab.Navigator>
         </NavigationContainer>
     );

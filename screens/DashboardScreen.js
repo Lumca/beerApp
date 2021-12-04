@@ -23,7 +23,7 @@ const DashboardScreen = ({navigation}) => {
 
     return (
         <View style={styles.container}>
-            <ItemPickerComponent/>
+            <ItemPickerComponent style={{height:"100%"}}/>
         </View>
     );
 };
@@ -32,7 +32,9 @@ export default DashboardScreen;
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: "#fff",
-        alignItems: "center",
+        flex: 1,
+        backgroundColor: "#3e3939",
+        height: "100%",
+        width: "100%",
     },
 });

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {Button, Input} from "react-native-elements";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useForm, Controller} from "react-hook-form";
@@ -79,8 +79,7 @@ const AttendeesSettingsScreen = ({navigation}) => {
     }
 
     return (
-        <View style={styles.container}>
-
+        <ScrollView style={styles.container}>
             <Input
                 placeholder='Počet účastníků'
                 leftIcon={{type: 'material', name: 'tag'}}
@@ -97,7 +96,7 @@ const AttendeesSettingsScreen = ({navigation}) => {
                     onPress={handleSubmit(onSubmit)}
                 />
             </TouchableOpacity>
-        </View>
+        </ScrollView>
     );
 };
 
@@ -106,6 +105,5 @@ export default AttendeesSettingsScreen;
 const styles = StyleSheet.create({
     container: {
         backgroundColor: "#fff",
-        alignItems: "center",
     },
 });

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {View} from "react-native";
+import {View, Text, StyleSheet, TouchableOpacity} from "react-native";
 import {Button} from "react-native-elements"
 import {getItemSetting, getAttendeesSetting} from "../functions/storage";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -43,15 +43,23 @@ const ItemPickerComponent = () => {
 
     const itemPicker = () => {
         return (
-            <View>
+            <View style={style.button_item_container}>
                 {items.map(item => (
-                    <Button
-                        key={item.id}
-                        title={item.name}
-                        onPress={() => {
-                            setItemSelected(item)
-                        }}
-                    />
+                    <TouchableOpacity onPress={() => {
+                        setItemSelected(item)
+                    }}>
+                        <View style={style.button_item_items}
+                              size={80}
+                              raised={true}
+                              key={item.id}
+                              title={item.name}
+                        >
+                            <Text>
+                                {item.name}
+                            </Text>
+                        </View>
+                    </TouchableOpacity>
+
                 ))}
             </View>
         )
@@ -122,3 +130,25 @@ const ItemPickerComponent = () => {
 }
 
 export default ItemPickerComponent;
+
+const style = StyleSheet.create({
+    button_item_container: {
+        flex: 1,
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'flex-start',
+        alignItems: 'stretch',
+        alignContent: 'stretch',
+        height: '100%',
+    },
+    //flexbox 4 views in a row over whole screen wrap
+    button_item_items: {
+        backgroundColor: '#fff',
+        width: '50%',
+        height: '100px',
+        flexBasis: "auto",
+        flexGrow: 0,
+        flexShrink: 1,
+        flex: "auto",
+    }
+});
