@@ -35,17 +35,6 @@ const ReportScreen = ({navigation}) => {
         return unsubscribe;
     }, [navigation]);
 
-    const Item = ({transactions}) => (
-        <View>
-            <Text>Jméno: {transactions.attendeeInfo.name}</Text>
-            <Text>Celková částka: {transactions.priceSum}</Text>
-        </View>
-    );
-
-    const renderItem = ({item}) => (
-        <Item title={item.attendeeInfo}/>
-    );
-
     return (
         <ScrollView>
             <Text h3 style={{marginLeft: 20}}>Stav sudů:</Text>
