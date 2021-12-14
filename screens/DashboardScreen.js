@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {Button, Input} from "react-native-elements";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useForm, Controller} from "react-hook-form";
@@ -23,7 +23,9 @@ const DashboardScreen = ({navigation}) => {
 
     return (
         <View style={styles.container}>
-            <ItemPickerComponent style={{height:"100%"}}/>
+            <ScrollView>
+                <ItemPickerComponent/>
+            </ScrollView>
         </View>
     );
 };
@@ -34,7 +36,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "#3e3939",
-        height: "100%",
-        width: "100%",
+        height: "100vm",
+        width: "100vm",
     },
 });

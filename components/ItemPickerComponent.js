@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from "react";
 import {View, Text, StyleSheet, TouchableOpacity} from "react-native";
-import {Button} from "react-native-elements"
+import {Button, Icon} from "react-native-elements"
 import {getItemSetting, getAttendeesSetting} from "../functions/storage";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import colorPicker from "../functions/colorPicker";
 
 const ItemPickerComponent = () => {
     const [itemSelected, setItemSelected] = useState(null);
@@ -41,6 +42,13 @@ const ItemPickerComponent = () => {
         }
     }, [itemSelected, glassSelected, attendeeSelected]);
 
+
+    const buttonBack = () => {
+        setAttendeeSelected(null);
+        setItemSelected(null);
+        setGlassSelected(null);
+    }
+
     const itemPicker = () => {
         return (
             <View style={style.button_item_container}>
@@ -48,13 +56,13 @@ const ItemPickerComponent = () => {
                     <TouchableOpacity onPress={() => {
                         setItemSelected(item)
                     }}>
-                        <View style={style.button_item_items}
+                        <View style={[style.button_item_items, {backgroundColor: colorPicker(item.id)}]}
                               size={80}
                               raised={true}
                               key={item.id}
                               title={item.name}
                         >
-                            <Text>
+                            <Text style={style.insideButtonText}>
                                 {item.name}
                             </Text>
                         </View>
@@ -68,24 +76,40 @@ const ItemPickerComponent = () => {
     const glassPicker = () => {
         return (
             <View>
-                <Button
-                    title="300ml"
-                    onPress={() => {
+                <View>
+                    <TouchableOpacity style={{margin: "2vh", flexDirection: "row"}} onPress={buttonBack}>
+                        <Icon name="arrow-left" size={"5vh"} type='font-awesome-5' color='white'/>
+                        <Text style={{fontSize: "3vh", color: "white", paddingLeft: "1vh"}}>Zpět</Text>
+                        <Text style={{
+                            fontSize: "3vh",
+                            color: "white",
+                            paddingLeft: "10vh"
+                        }}>Vybráno: {itemSelected.name}</Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={style.button_item_container}>
+                    <TouchableOpacity onPress={() => {
                         setGlassSelected(300)
-                    }}
-                />
-                <Button
-                    title="400ml"
-                    onPress={() => {
+                    }}>
+                        <View style={[style.button_glass_item, {backgroundColor: "#e03636"}]}>
+                            <Text style={style.insideButtonText}>300ml</Text>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => {
                         setGlassSelected(400)
-                    }}
-                />
-                <Button
-                    title="500ml"
-                    onPress={() => {
+                    }}>
+                        <View style={[style.button_glass_item, {backgroundColor: "#52a852"}]}>
+                            <Text style={style.insideButtonText}>400ml</Text>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => {
                         setGlassSelected(500)
-                    }}
-                />
+                    }}>
+                        <View style={[style.button_glass_item, {backgroundColor: "#5b5bfc"}]}>
+                            <Text style={style.insideButtonText}>500ml</Text>
+                        </View>
+                    </TouchableOpacity>
+                </View>
             </View>
         );
     };
@@ -93,15 +117,30 @@ const ItemPickerComponent = () => {
     const attendeePicker = () => {
         return (
             <View>
-                {attendees.map(attendee => (
-                    <Button
-                        key={attendee.id}
-                        title={attendee.name}
-                        onPress={() => {
-                            setAttendeeSelected(attendee)
-                        }}
-                    />
-                ))}
+                <View>
+                    <TouchableOpacity style={{margin: "2vh", flexDirection: "row"}} onPress={buttonBack}>
+                        <Icon name="arrow-left" size={"5vh"} type='font-awesome-5' color='white'/>
+                        <Text style={{fontSize: "3vh", color: "white", paddingLeft: "1vh"}}>Zpět</Text>
+                        <Text style={{
+                            fontSize: "3vh",
+                            color: "white",
+                            paddingLeft: "10vh"
+                        }}>Vybráno: {itemSelected.name} {glassSelected} ml</Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={style.button_item_container}>
+                    {attendees.map((attendee, key) => (
+                        <View>
+                            <TouchableOpacity onPress={() => {
+                                setAttendeeSelected(attendee)
+                            }}>
+                                <View style={[style.button_attendee_item, {backgroundColor: colorPicker(key)}]}>
+                                    <Text style={style.insideButtonText}>{attendee.name}</Text>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+                    ))}
+                </View>
             </View>
         )
     }
@@ -133,22 +172,42 @@ export default ItemPickerComponent;
 
 const style = StyleSheet.create({
     button_item_container: {
-        flex: 1,
         flexDirection: 'row',
         flexWrap: 'wrap',
-        justifyContent: 'flex-start',
-        alignItems: 'stretch',
-        alignContent: 'stretch',
-        height: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: "15vh",
     },
-    //flexbox 4 views in a row over whole screen wrap
     button_item_items: {
+        width: '25vh',
+        height: '25vh',
+        margin: '1vh',
+        borderRadius: '1vh',
+    },
+    insideButtonText: {
+        textAlign: 'center',
+        fontSize: '2.5vh',
+        color: '#000',
+        paddingTop: '7vh',
+    },
+    button_glass_item: {
         backgroundColor: '#fff',
-        width: '50%',
-        height: '100px',
-        flexBasis: "auto",
-        flexGrow: 0,
-        flexShrink: 1,
-        flex: "auto",
-    }
+        width: '25vh',
+        height: '25vh',
+        margin: '1vh',
+        borderRadius: '1vh',
+        textAlign: 'center',
+        fontSize: '2.5vh',
+        color: '#000',
+    },
+    button_attendee_item: {
+        backgroundColor: '#fff',
+        width: '15vh',
+        height: '15vh',
+        margin: '2vh',
+        borderRadius: '1vh',
+        textAlign: 'center',
+        fontSize: '2.5vh',
+        color: '#000',
+    },
 });
