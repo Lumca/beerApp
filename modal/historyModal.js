@@ -61,7 +61,7 @@ const style = StyleSheet.create({
         styles_container: {
             alignItems: 'center',
             justifyContent: 'center',
-            paddingTop: "15vh"
+            paddingTop: 15
         },
         styles_body: {
             backgroundColor: '#fff',
@@ -69,7 +69,6 @@ const style = StyleSheet.create({
             justifyContent: 'center',
             flexDirection: 'column',
             borderRadius: 10,
-            border: "1px solid blue",
         },
         styles_bodyText: {
             fontSize: 18,

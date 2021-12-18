@@ -34,10 +34,10 @@ const HistoryScreen = ({navigation}) => {
                     selectedTransactionKey={selectedTransactionKey}
                 /> : null}
             <View style={styles.container_text}>
-                <Text style={{fontSize: "3vw", flex: "0 0 20vw"}}>Jméno</Text>
-                <Text style={{fontSize: "3vw", flex: 1}}>Pivo</Text>
-                <Text style={{fontSize: "3vw", flex: 1}}>Množství</Text>
-                <Text style={{fontSize: "3vw", flex: 1}}>Čas</Text>
+                <Text style={{fontSize: 20, flex: 1}}>Pivo</Text>
+                <Text style={{fontSize: 20, flex: 1}}>Jméno</Text>
+                <Text style={{fontSize: 20, flex: 1}}>Množství</Text>
+                <Text style={{fontSize: 20, flex: 1}}>Čas</Text>
             </View>
             {transactions.map((transaction, i) => (
                 <TouchableOpacity key={i} onPress={() => {
@@ -45,10 +45,10 @@ const HistoryScreen = ({navigation}) => {
                     setModalVisible(true)
                 }}>
                     <View key={i} style={styles.container_text}>
-                        <Text style={{fontSize: "3vw", flex: "0 0 20vw"}}>{transaction.itemInfo.name}</Text>
-                        <Text style={{fontSize: "3vw", flex: 1}}>{transaction.attendeeInfo.name}</Text>
-                        <Text style={{fontSize: "3vw", flex: 1}}>{transaction.glassInfo} ml</Text>
-                        <Text style={{fontSize: "3vw", flex: 1}}>{transaction.time}</Text>
+                        <Text style={{fontSize: 20, flex: 1}}>{transaction.itemInfo.name}</Text>
+                        <Text style={{fontSize: 20, flex: 1}}>{transaction.attendeeInfo.name}</Text>
+                        <Text style={{fontSize: 20, flex: 1}}>{transaction.glassInfo} ml</Text>
+                        <Text style={{fontSize: 20, flex: 1}}>{transaction.time}</Text>
                     </View>
                 </TouchableOpacity>
             ))}
@@ -68,6 +68,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         borderWidth: 1,
-        height: 100
+        height: 70
     },
 });

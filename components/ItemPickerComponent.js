@@ -77,13 +77,13 @@ const ItemPickerComponent = () => {
         return (
             <View>
                 <View>
-                    <TouchableOpacity style={{margin: "2vh", flexDirection: "row"}} onPress={buttonBack}>
-                        <Icon name="arrow-left" size={"5vh"} type='font-awesome-5' color='white'/>
-                        <Text style={{fontSize: "3vh", color: "white", paddingLeft: "1vh"}}>Zpět</Text>
+                    <TouchableOpacity style={{margin: 2, flexDirection: "row"}} onPress={buttonBack}>
+                        <Icon name="arrow-left" size={30} type='font-awesome-5' color='white'/>
+                        <Text style={{fontSize: 30, color: "white", paddingLeft: 1}}>Zpět</Text>
                         <Text style={{
-                            fontSize: "3vh",
+                            fontSize: 30,
                             color: "white",
-                            paddingLeft: "10vh"
+                            paddingLeft: 10
                         }}>Vybráno: {itemSelected.name}</Text>
                     </TouchableOpacity>
                 </View>
@@ -118,13 +118,13 @@ const ItemPickerComponent = () => {
         return (
             <View>
                 <View>
-                    <TouchableOpacity style={{margin: "2vh", flexDirection: "row"}} onPress={buttonBack}>
-                        <Icon name="arrow-left" size={"5vh"} type='font-awesome-5' color='white'/>
-                        <Text style={{fontSize: "3vh", color: "white", paddingLeft: "1vh"}}>Zpět</Text>
+                    <TouchableOpacity style={{margin: 2, flexDirection: "row"}} onPress={buttonBack}>
+                        <Icon name="arrow-left" size={30} type='font-awesome-5' color='white'/>
+                        <Text style={{fontSize: 30, color: "white", paddingLeft: 1}}>Zpět</Text>
                         <Text style={{
-                            fontSize: "3vh",
+                            fontSize: 30,
                             color: "white",
-                            paddingLeft: "10vh"
+                            paddingLeft: 10
                         }}>Vybráno: {itemSelected.name} {glassSelected} ml</Text>
                     </TouchableOpacity>
                 </View>
@@ -176,38 +176,38 @@ const style = StyleSheet.create({
         flexWrap: 'wrap',
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: "15vh",
+        marginTop: 50,
     },
     button_item_items: {
-        width: '25vh',
-        height: '25vh',
-        margin: '1vh',
-        borderRadius: '1vh',
+        width: 150,
+        height: 150,
+        margin: 20,
+        borderRadius: 25,
     },
     insideButtonText: {
         textAlign: 'center',
-        fontSize: '2.5vh',
+        fontSize: 30,
         color: '#000',
-        paddingTop: '7vh',
+        paddingTop: 50,
     },
     button_glass_item: {
         backgroundColor: '#fff',
-        width: '25vh',
-        height: '25vh',
-        margin: '1vh',
-        borderRadius: '1vh',
+        width: 150,
+        height: 150,
+        margin: 5,
+        borderRadius: 25,
         textAlign: 'center',
-        fontSize: '2.5vh',
+        fontSize: 30,
         color: '#000',
     },
     button_attendee_item: {
         backgroundColor: '#fff',
-        width: '15vh',
-        height: '15vh',
-        margin: '2vh',
-        borderRadius: '1vh',
+        width: 150,
+        height: 150,
+        margin: 5,
+        borderRadius: 25,
         textAlign: 'center',
-        fontSize: '2.5vh',
+        fontSize: 30,
         color: '#000',
     },
 });
