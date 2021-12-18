@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
-import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {StyleSheet, Switch, Text, TouchableOpacity, View} from "react-native";
 import {Button, Input, ListItem} from "react-native-elements";
+import {useTheme} from "@react-navigation/native";
 
 
 const SettingsScreen = ({navigation}) => {
@@ -15,11 +16,26 @@ const SettingsScreen = ({navigation}) => {
             function:() => navigation.navigate('AttendeesSettings')
         },
     ]
+    const theme = useTheme()
 
     useEffect(() => {
         navigation.setOptions({
             headerTitle: 'Nastavení',
+            headerRight: () => (
+                <View>
+                    <Switch
+                        title="Uložit"
+                        //value={theme.mode === 'dark'}
+                        //onValueChange={value => theme.setMode(value ? 'dark' : 'light')}
+                    />
+                    <TouchableOpacity onPress={() => console.log(theme)}>
+                        <Text>Uložit</Text>
+                    </TouchableOpacity>
+                </View>
+
+            )
         });
+
     }, [navigation]);
 
     return (

@@ -91,21 +91,21 @@ const ItemPickerComponent = () => {
                     <TouchableOpacity onPress={() => {
                         setGlassSelected(300)
                     }}>
-                        <View style={[style.button_glass_item, {backgroundColor: "#e03636"}]}>
+                        <View key={300} style={[style.button_glass_item, {backgroundColor: "#e03636"}]}>
                             <Text style={style.insideButtonText}>300ml</Text>
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => {
                         setGlassSelected(400)
                     }}>
-                        <View style={[style.button_glass_item, {backgroundColor: "#52a852"}]}>
+                        <View key={400} style={[style.button_glass_item, {backgroundColor: "#52a852"}]}>
                             <Text style={style.insideButtonText}>400ml</Text>
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => {
                         setGlassSelected(500)
                     }}>
-                        <View style={[style.button_glass_item, {backgroundColor: "#5b5bfc"}]}>
+                        <View key={500} style={[style.button_glass_item, {backgroundColor: "#5b5bfc"}]}>
                             <Text style={style.insideButtonText}>500ml</Text>
                         </View>
                     </TouchableOpacity>
@@ -130,7 +130,7 @@ const ItemPickerComponent = () => {
                 </View>
                 <View style={style.button_item_container}>
                     {attendees.map((attendee, key) => (
-                        <View>
+                        <View key={key}>
                             <TouchableOpacity onPress={() => {
                                 setAttendeeSelected(attendee)
                             }}>

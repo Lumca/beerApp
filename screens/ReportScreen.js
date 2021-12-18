@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {View, StyleSheet, TouchableOpacity, ScrollView, FlatList} from "react-native";
+import {View, StyleSheet, TouchableOpacity, ScrollView, FlatList, Switch} from "react-native";
 import {Text} from 'react-native-elements';
 import litersSumCount from "../functions/item";
 import transactionsReport from "../functions/transactions";
@@ -26,7 +26,6 @@ const ReportScreen = ({navigation}) => {
             })
 
             transactionsReport().then(value => {
-                console.log(value);
                 setTransactions(value);
             })
         });

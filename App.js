@@ -1,7 +1,7 @@
 import {StatusBar} from 'expo-status-bar';
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
+import {StyleSheet, Text, useColorScheme, View} from 'react-native';
+import {NavigationContainer, DarkTheme, DefaultTheme} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import DashboardScreen from './screens/DashboardScreen';
@@ -27,9 +27,11 @@ function StackScreens() {
 }
 
 
+
 export default function App() {
+    const scheme = useColorScheme()
     return (
-        <NavigationContainer>
+        <NavigationContainer theme={scheme === 'dark' ? DarkTheme : DefaultTheme}>
             <Tab.Navigator>
                 <Tab.Screen
                     name="Settings"
@@ -40,14 +42,6 @@ export default function App() {
                             <MaterialIcons name="settings" color={color} size={size}/>
                         )
                     }}
-                />
-                <Tab.Screen name='Leaderboard'
-                            component={LeaderboardScreen}
-                            options={{
-                                tabBarIcon: ({color, size}) => (
-                                    <MaterialIcons name="leaderboard" color={color} size={size}/>
-                                )
-                            }}
                 />
                 <Tab.Screen name="Dashboard"
                             component={DashboardScreen}
@@ -77,12 +71,3 @@ export default function App() {
         </NavigationContainer>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-});
