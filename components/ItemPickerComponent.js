@@ -181,7 +181,7 @@ const style = StyleSheet.create({
     button_item_items: {
         width: 150,
         height: 150,
-        margin: 20,
+        margin: 5,
         borderRadius: 25,
     },
     insideButtonText: {

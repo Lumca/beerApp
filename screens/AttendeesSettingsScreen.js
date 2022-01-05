@@ -24,7 +24,6 @@ const AttendeesSettingsScreen = ({navigation}) => {
         const jsonArr = JSON.stringify(arr)
         AsyncStorage.setItem('@attendeesSetting', jsonArr)
             .then(() => {
-                console.log(arr);
                 navigation.navigate('Dashboard');
             })
             .catch(err => {

@@ -26,12 +26,9 @@ function StackScreens() {
     );
 }
 
-
-
 export default function App() {
-    const scheme = useColorScheme()
     return (
-        <NavigationContainer theme={scheme === 'dark' ? DarkTheme : DefaultTheme}>
+        <NavigationContainer>
             <Tab.Navigator>
                 <Tab.Screen
                     name="Settings"

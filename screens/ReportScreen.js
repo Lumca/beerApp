@@ -4,8 +4,6 @@ import {Text} from 'react-native-elements';
 import litersSumCount from "../functions/item";
 import transactionsReport from "../functions/transactions";
 import Collapsible from "react-native-collapsible";
-import Modal from "react-native-modal";
-
 
 const ReportScreen = ({navigation}) => {
 
@@ -60,7 +58,7 @@ const ReportScreen = ({navigation}) => {
                             <View key={index} style={style.attendees_items}>
                                 <View style={style.attendees_name_price_container}>
                                     <Text>Jméno: {transactions.attendeeInfo.name}</Text>
-                                    <Text>Celková částka: {transactions.priceSum}</Text>
+                                    <Text>Celková částka: {transactions.priceSum.toFixed(2)}</Text>
                                 </View>
                                 <Collapsible collapsed={collapsible !== index}>
                                     <View style={style.item_name_price_container}>
@@ -68,7 +66,7 @@ const ReportScreen = ({navigation}) => {
                                             return (
                                                 <View key={index}>
                                                     <Text>{item.name}</Text>
-                                                    <Text>Cena: {item.price}</Text>
+                                                    <Text>Cena: {item.price.toFixed(2)}</Text>
                                                     <Text>Množství v ml: {item.litersSum}</Text>
                                                 </View>
                                             )
@@ -81,7 +79,6 @@ const ReportScreen = ({navigation}) => {
                     )
                 })}
             </View>
-
         </ScrollView>
     )
 }

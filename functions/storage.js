@@ -14,29 +14,6 @@ const getTransactions = async () => {
     }
 };
 
-const getTheme = async () => {
-    try {
-        return await AsyncStorage.getItem("@theme").then(value => {
-            if (value !== null) {
-                return value;
-            } else {
-                return [];
-            }
-        })
-    } catch (error) {
-        return error;
-    }
-};
-
-const setTheme = async (theme) => {
-    try {
-        console.log(theme)
-        return await AsyncStorage.setItem("@theme", theme);
-    } catch (error) {
-        return error;
-    }
-};
-
 const getItemSetting = async () => {
     return AsyncStorage.getItem("@itemSetting").then(value => {
         if (value !== null) {
@@ -57,4 +34,12 @@ const getAttendeesSetting = async () => {
     });
 };
 
-export {getTransactions, getItemSetting, getAttendeesSetting, getTheme, setTheme};
+const deleteAllData = async () => {
+    try {
+        await AsyncStorage.clear();
+    } catch (error) {
+        return error;
+    }
+};
+
+export {getTransactions, getItemSetting, getAttendeesSetting, deleteAllData};

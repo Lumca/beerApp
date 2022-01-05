@@ -3,30 +3,18 @@ import {Modal, Button, Alert} from "react-native";
 import {Text, View, StyleSheet} from "react-native";
 import transactionRevert from "../functions/transactionRevert";
 import {useNavigation} from '@react-navigation/native';
+import {deleteAllData} from "../functions/storage";
 
-const HistoryModal = props => {
+const resetAppModal = props => {
     const navigation = useNavigation();
     return (
         <Modal
             animationType="slide"
             transparent={true}
-            onRequestClose={() => {
-                Alert.alert("Modal has been closed.");
-            }}
         >
             <View style={style.styles_container}>
                 <View style={style.styles_body}>
-                    <View>
-                        <Text style={style.styles_bodyText}>Chceš smazat transakci:</Text>
-                        <Text
-                            style={style.styles_bodyText}>Vytvořena: {props.transactions[props.selectedTransactionKey].attendeeInfo.name}</Text>
-                        <Text
-                            style={style.styles_bodyText}>Pivo: {props.transactions[props.selectedTransactionKey].itemInfo.name}</Text>
-                        <Text
-                            style={style.styles_bodyText}>Ml: {props.transactions[props.selectedTransactionKey].glassInfo}</Text>
-                        <Text
-                            style={style.styles_bodyText}>Čas: {props.transactions[props.selectedTransactionKey].time}</Text>
-                    </View>
+                    <Text>Chcete vymazat všechny data?</Text>
                     <View style={style.styles_footer}>
                         <View style={style.styles_buttons}>
                             <Button
@@ -38,12 +26,11 @@ const HistoryModal = props => {
                         </View>
                         <View style={style.styles_buttons}>
                             <Button
-                                title="Smazat"
+                                title="Smazat data"
                                 onPress={() => {
-                                    transactionRevert(props.selectedTransactionKey).then(() => {
+                                    deleteAllData().then(() => {
                                         props.setModalVisible(false);
-                                        navigation.navigate('Dashboard');
-                                        navigation.navigate('History');
+                                        navigation.navigate("ItemSettings");
                                     });
                                 }}
                             />
@@ -51,11 +38,12 @@ const HistoryModal = props => {
                     </View>
                 </View>
             </View>
+
         </Modal>
     );
 };
 
-export default HistoryModal;
+export default resetAppModal;
 
 const style = StyleSheet.create({
         styles_container: {
